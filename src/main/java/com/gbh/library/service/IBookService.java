@@ -7,4 +7,7 @@ import java.util.List;
 public interface IBookService {
 
     List<Book> findAll();
+
+    Book findBookById(int id);
+
 }

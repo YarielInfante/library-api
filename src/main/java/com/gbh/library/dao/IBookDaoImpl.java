@@ -49,4 +49,37 @@ public class IBookDaoImpl implements IBookDao {
         return books;
 
     }
+
+    @Override
+    public Book findBookById(int id) {
+        String SQL_QUERY = "SELECT ID, AUTHOR, TITLE, PAGES, COVER_URL FROM BOOK WHERE ID = ?";
+
+        Book book = new Book();
+
+        try (PreparedStatement pst = connection.prepareStatement(SQL_QUERY)) {
+
+            pst.setInt(1, id);
+            ResultSet resultSet = pst.executeQuery();
+
+            if (resultSet.next()) {
+
+                book.setId(resultSet.getInt("ID"));
+                book.setAuthor(resultSet.getString("AUTHOR"));
+                book.setTitle(resultSet.getString("TITLE"));
+                book.setPages(resultSet.getInt("PAGES"));
+                book.setCoverUrl(resultSet.getString("COVER_URL"));
+
+                resultSet.close();
+
+                return book;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+
 }

@@ -8,4 +8,6 @@ import java.util.List;
 public interface IBookDao {
 
     List<Book> findAll();
+
+    Book findBookById(int id);
 }

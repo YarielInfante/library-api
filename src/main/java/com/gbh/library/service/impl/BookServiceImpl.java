@@ -15,4 +15,11 @@ public class BookServiceImpl implements IBookService {
 
         return iBookDao.findAll();
     }
+
+    @Override
+    public Book findBookById(int id) {
+        IBookDao iBookDao = new IBookDaoImpl();
+
+        return iBookDao.findBookById(id);
+    }
 }
