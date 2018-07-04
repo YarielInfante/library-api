@@ -12,7 +12,7 @@ public class ApplicationProperties {
     private static String serverHttpPort;
     private static String serverHttpPath;
 
-    static {
+    public static void load() {
 
         Properties prop = new Properties();
 

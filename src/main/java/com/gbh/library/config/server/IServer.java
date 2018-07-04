@@ -1,6 +1,6 @@
 package com.gbh.library.config.server;
 
-public interface Server {
+public interface IServer {
 
     void start();
 }
