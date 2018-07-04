@@ -1,5 +1,7 @@
-package com.gbh.config.server;
+package com.gbh.config.server.impl;
 
+import com.gbh.config.ApplicationProperties;
+import com.gbh.config.server.Server;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 
@@ -8,14 +10,15 @@ import java.net.URI;
 public class GrizzlyHttpServer implements Server {
 
     // Base URI the Grizzly HTTP server will listen on
-    public static final String BASE_URI = "http://0.0.0.0:8080/myapp/";
 
     /**
      * Starts Grizzly HTTP server exposing JAX-RS resources defined in this application.
-     *
-     * @return Grizzly HTTP server.
      */
     public void start() {
+
+        String BASE_URI = "http://0.0.0.0:" + ApplicationProperties.getServerHttpPort() + "/" + ApplicationProperties.getServerHttpPath();
+
+        System.out.println("Http server running on " + BASE_URI);
         // create a resource config that scans for JAX-RS resources and providers
         // in com.gbh package
         final ResourceConfig rc = new ResourceConfig().packages("com.gbh.resources");
