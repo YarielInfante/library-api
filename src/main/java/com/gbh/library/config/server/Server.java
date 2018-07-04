@@ -1,4 +1,4 @@
-package com.gbh.config.server;
+package com.gbh.library.config.server;
 
 public interface Server {
 

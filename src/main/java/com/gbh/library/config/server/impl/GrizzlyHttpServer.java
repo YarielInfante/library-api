@@ -1,7 +1,7 @@
-package com.gbh.config.server.impl;
+package com.gbh.library.config.server.impl;
 
-import com.gbh.config.ApplicationProperties;
-import com.gbh.config.server.Server;
+import com.gbh.library.util.ApplicationProperties;
+import com.gbh.library.config.server.Server;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 

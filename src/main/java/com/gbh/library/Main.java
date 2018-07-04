@@ -1,7 +1,7 @@
-package com.gbh;
+package com.gbh.library;
 
-import com.gbh.config.server.Server;
-import com.gbh.config.server.impl.GrizzlyHttpServer;
+import com.gbh.library.config.server.Server;
+import com.gbh.library.config.server.impl.GrizzlyHttpServer;
 
 /**
  * Main class.

@@ -1,6 +1,5 @@
-package com.gbh.config;
+package com.gbh.library.util;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;

@@ -1,6 +1,6 @@
-package com.gbh.config.database;
+package com.gbh.library.config.database;
 
-import com.gbh.config.ApplicationProperties;
+import com.gbh.library.util.ApplicationProperties;
 import com.zaxxer.hikari.HikariDataSource;
 
 import java.sql.Connection;
