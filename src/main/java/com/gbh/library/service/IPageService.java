@@ -1,7 +1,7 @@
 package com.gbh.library.service;
 
 import com.gbh.library.domain.Page;
-import com.gbh.library.util.PageFormatter;
+import com.gbh.library.domain.PageDTO;
 
 import java.util.List;
 
@@ -10,8 +10,7 @@ public interface IPageService {
 
     List<Page> findAllByBookId(Integer bookId);
 
-    String formatPageHTML(Page page);
+    PageDTO formatPage(Page page, String formatType);
 
-    String formatPageTEXT(Page page);
 
 }

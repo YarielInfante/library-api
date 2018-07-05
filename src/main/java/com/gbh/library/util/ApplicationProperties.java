@@ -11,7 +11,6 @@ public class ApplicationProperties {
     private static String dataSourcePassword;
     private static String serverHttpPort;
     private static String serverHttpPath;
-    private static String pageHtml;
     private static String pageText;
 
     public static void load() {
@@ -31,7 +30,6 @@ public class ApplicationProperties {
             dataSourcePassword = prop.getProperty("dataSource.password");
             serverHttpPath = prop.getProperty("server.http.path");
             serverHttpPort = prop.getProperty("server.http.port");
-            pageHtml = prop.getProperty("page.html");
             pageText = prop.getProperty("page.text");
 
         } catch (IOException ex) {
@@ -59,10 +57,6 @@ public class ApplicationProperties {
 
     public static String getServerHttpPath() {
         return serverHttpPath;
-    }
-
-    public static String getPageHtml() {
-        return pageHtml;
     }
 
     public static String getPageText() {

@@ -5,6 +5,7 @@ import com.gbh.library.dao.IBookDao;
 import com.gbh.library.dao.IPageDao;
 import com.gbh.library.domain.Book;
 import com.gbh.library.domain.Page;
+import com.gbh.library.domain.PageDTO;
 import com.gbh.library.service.IBookService;
 import com.gbh.library.service.IPageService;
 
@@ -61,20 +62,13 @@ public class BookResource {
 
         if (page != null) {
             page.setBook(bookDao.findBookById(bookId));
-            if (contentType.equalsIgnoreCase("html")) {
 
-                String formatPage = pageService.formatPageHTML(page);
+            PageDTO pageDTO = pageService.formatPage(page, contentType);
 
-                return Response.ok(formatPage).type(MediaType.TEXT_HTML).build();
+            return Response.ok(pageDTO.getContent()).type(pageDTO.getMediaType()).build();
 
-            } else if (contentType.equalsIgnoreCase("text")) {
-
-                String formatPage = pageService.formatPageTEXT(page);
-
-                return Response.ok(formatPage).type(MediaType.TEXT_PLAIN).build();
-
-            }
         }
+
         return Response.ok("Page not found").build();
     }
 }

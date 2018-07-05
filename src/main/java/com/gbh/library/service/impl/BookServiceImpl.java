@@ -12,7 +12,7 @@ public class BookServiceImpl implements IBookService {
 
 
     @Autowired
-    public IBookDao iBookDao;
+    private IBookDao iBookDao;
 
 
     @Override
