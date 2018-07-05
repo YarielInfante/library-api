@@ -1,8 +1,12 @@
 package com.gbh.library.web.rest;
 
 import com.gbh.library.config.ApplicationContext;
+import com.gbh.library.dao.IBookDao;
+import com.gbh.library.dao.IPageDao;
 import com.gbh.library.domain.Book;
+import com.gbh.library.domain.Page;
 import com.gbh.library.service.IBookService;
+import com.gbh.library.service.IPageService;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -43,5 +47,34 @@ public class BookResource {
 
         return Response.ok(book).build();
 
+    }
+
+
+    @GET
+    @Path("/{bookId}/page/{pageId}/{contentType}")
+    public Response findPageById(@PathParam("bookId") int bookId, @PathParam("pageId") int pageId, @PathParam("contentType") String contentType) {
+        IPageDao pageDao = ApplicationContext.getApplicationContext().getComponent(IPageDao.class);
+        IPageService pageService = ApplicationContext.getApplicationContext().getComponent(IPageService.class);
+        IBookDao bookDao = ApplicationContext.getApplicationContext().getComponent(IBookDao.class);
+
+        Page page = pageDao.findByBookAndPage(bookId, pageId);
+
+        if (page != null) {
+            page.setBook(bookDao.findBookById(bookId));
+            if (contentType.equalsIgnoreCase("html")) {
+
+                String formatPage = pageService.formatPageHTML(page);
+
+                return Response.ok(formatPage).type(MediaType.TEXT_HTML).build();
+
+            } else if (contentType.equalsIgnoreCase("text")) {
+
+                String formatPage = pageService.formatPageTEXT(page);
+
+                return Response.ok(formatPage).type(MediaType.TEXT_PLAIN).build();
+
+            }
+        }
+        return Response.ok("Page not found").build();
     }
 }

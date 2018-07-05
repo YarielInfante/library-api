@@ -1,8 +1,10 @@
 package com.gbh.library.dao;
 
+import com.gbh.library.annotation.Component;
 import com.gbh.library.config.database.DataSource;
 import com.gbh.library.domain.Book;
-import com.gbh.library.annotation.*;
+import com.gbh.library.util.Query;
+import com.gbh.library.util.RowMapper;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -29,57 +31,39 @@ public class BookDaoImpl implements IBookDao {
 
     @Override
     public List<Book> findAll() {
-        String SQL_QUERY = "SELECT ID, AUTHOR, TITLE, PAGES, COVER_URL FROM BOOK";
         List<Book> books = null;
-        try (
-            PreparedStatement pst = connection.prepareStatement(SQL_QUERY);
-            ResultSet resultSet = pst.executeQuery();) {
+        try (PreparedStatement pst = connection.prepareStatement(Query.SELECT_ALL_BOOK);
+             ResultSet resultSet = pst.executeQuery();) {
             books = new ArrayList<>();
-            Book book;
             while (resultSet.next()) {
-                book = new Book();
-                book.setId(resultSet.getInt("ID"));
-                book.setAuthor(resultSet.getString("AUTHOR"));
-                book.setTitle(resultSet.getString("TITLE"));
-                book.setPages(resultSet.getInt("PAGES"));
-                book.setCoverUrl(resultSet.getString("COVER_URL"));
-                books.add(book);
+                books.add(RowMapper.bookMapper(resultSet.getInt("ID"),
+                    resultSet.getString("AUTHOR"),
+                    resultSet.getString("TITLE"),
+                    resultSet.getInt("PAGES"),
+                    resultSet.getString("COVER_URL")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return books;
-
     }
 
     @Override
-    public Book findBookById(int id) {
-        String SQL_QUERY = "SELECT ID, AUTHOR, TITLE, PAGES, COVER_URL FROM BOOK WHERE ID = ?";
-
-        Book book = new Book();
-
-        try (PreparedStatement pst = connection.prepareStatement(SQL_QUERY)) {
-
+    public Book findBookById(Integer id) {
+        try (PreparedStatement pst = connection.prepareStatement(Query.SELECT_ALL_BOOK_BY_ID)) {
             pst.setInt(1, id);
             ResultSet resultSet = pst.executeQuery();
-
             if (resultSet.next()) {
-
-                book.setId(resultSet.getInt("ID"));
-                book.setAuthor(resultSet.getString("AUTHOR"));
-                book.setTitle(resultSet.getString("TITLE"));
-                book.setPages(resultSet.getInt("PAGES"));
-                book.setCoverUrl(resultSet.getString("COVER_URL"));
-
-                resultSet.close();
-
-                return book;
+                return RowMapper.bookMapper(resultSet.getInt("ID"),
+                    resultSet.getString("AUTHOR"),
+                    resultSet.getString("TITLE"),
+                    resultSet.getInt("PAGES"),
+                    resultSet.getString("COVER_URL"));
             }
-
+            resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return null;
     }
 

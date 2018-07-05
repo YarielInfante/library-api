@@ -9,5 +9,5 @@ public interface IBookDao {
 
     List<Book> findAll();
 
-    Book findBookById(int id);
+    Book findBookById(Integer id);
 }
