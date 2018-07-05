@@ -5,6 +5,7 @@ import org.reflections.Reflections;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
@@ -42,7 +43,11 @@ public class ComponentScannator {
             eligibleComponents.put(cl.getCanonicalName(), cl);
             Type[] genericInterfaces = cl.getGenericInterfaces();
             for (Type type : genericInterfaces) {
-                eligibleComponents.put(((Class) type).getCanonicalName(), cl);
+                if (type instanceof ParameterizedType) {
+                    eligibleComponents.put(((ParameterizedType) type).getRawType().getTypeName(), cl);
+                } else {
+                    eligibleComponents.put(((Class) type).getCanonicalName(), cl);
+                }
             }
 
         });
@@ -58,6 +63,7 @@ public class ComponentScannator {
         Object newInstance = cl.newInstance();
 
         for (Field field : declaredFields) {
+            field.setAccessible(true);
             Annotation[] annotations = field.getAnnotations();
             for (Annotation annotation : annotations) {
                 if (annotation instanceof Autowired) {
@@ -105,7 +111,11 @@ public class ComponentScannator {
 
             for (Type type : genericInterfaces) {
 
-                components.put(((Class) type).getCanonicalName(), newInstance);
+                if (type instanceof ParameterizedType) {
+                    components.put(((ParameterizedType) type).getRawType().getTypeName(), newInstance);
+                } else {
+                    components.put(((Class) type).getCanonicalName(), newInstance);
+                }
             }
         } else {
             components.put(cl.getCanonicalName(), newInstance);
