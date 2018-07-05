@@ -2,6 +2,7 @@ package com.gbh.library.dao;
 
 import com.gbh.library.config.database.DataSource;
 import com.gbh.library.domain.Book;
+import com.gbh.library.annotation.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,11 +14,12 @@ import java.util.List;
 /**
  * Book data access object.
  */
-public class IBookDaoImpl implements IBookDao {
+@Component
+public class BookDaoImpl implements IBookDao {
 
     private Connection connection;
 
-    public IBookDaoImpl() {
+    public BookDaoImpl() {
         try {
             connection = DataSource.getConnection();
         } catch (SQLException e) {
