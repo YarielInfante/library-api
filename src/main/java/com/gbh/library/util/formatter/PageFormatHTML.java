@@ -25,7 +25,7 @@ public class PageFormatHTML implements PageFormatter<String> {
         Map<String, Object> input = new HashMap<>();
         input.put("title", page.getBook().getTittle());
         input.put("author", page.getBook().getAuthor());
-        input.put("content", page.getContent());
+        input.put("content", page.getContent().replace("\n","</br>"));
         input.put("current_page", page.getNumber());
 
         String output = "";
