@@ -1,6 +1,7 @@
-package com.gbh.library.dao;
+package com.gbh.library.dao.impl;
 
 import com.gbh.library.config.database.DataSource;
+import com.gbh.library.dao.IPageDao;
 import com.gbh.library.domain.Page;
 import com.gbh.library.util.Query;
 import com.gbh.library.util.RowMapper;
