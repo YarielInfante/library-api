@@ -32,8 +32,7 @@ port 3305.
         dataSource.password=mysql
         
 
-you can find the database schema creation in **schema.sql** along side with dummy inserts of data.
-
+you can find the database schema creation in **schema.sql** along side with dummy inserts of data. This file will create everything is needed for the application to run.
 
 In the section below is the configuration needed for the http server to run.
 You can change either the port of the server or http path
